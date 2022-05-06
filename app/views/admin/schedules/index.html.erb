@@ -1,0 +1,25 @@
+<%= render partial: 'layouts/flash' %>
+<div class ="form-layout">
+  <h1 class="form-title">上映スケジュール</h1>
+  <table class = "table table-striped">
+  <tr class="table-primary">
+  <tr>
+    <td>ID</td>
+    <td>映画</td>
+    <td>上映開始日</td>
+    <td>上映終了日</td>
+    <td>作成日</td>
+    <td>更新日</td>
+  </tr>
+  <% @schedules.each do |schedule| %>
+  <tr>
+    <td><%= link_to "#{schedule.id}", "/admin/schedules/#{schedule.id}"%></td>
+    <td><%= schedule.name %></td>
+    <td><%= schedule.start_time.strftime("%H:%M") %></td>
+    <td><%= schedule.end_time.strftime("%H:%M") %></td>
+    <td><%= schedule.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+    <td><%= schedule.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+  </tr>
+  <% end %>
+  </table>
+</div>

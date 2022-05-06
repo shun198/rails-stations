@@ -1,0 +1,53 @@
+<%= render partial: 'layouts/flash' %>
+  <h1 class="form-title">映画詳細</h1>
+  <%= form_with(model: @movie, url:"/movies/#{@movie.id}/schedules/1/sheets") do |f| %>
+  <div class ="form-layout">
+    <%= image_tag "#{@movie.image_url}" %><br>
+    <%= f.label :映画タイトル %><br>
+    <%= f.text_field :name, placeholder:"#{@movie.name}",size:40,readonly: true%><br>
+    <%= f.label :公開年 %><br>
+    <%= f.text_field :year, placeholder:"#{@movie.year}",size:20,readonly: true%><br>
+    <%= f.label :上映中か %><br>
+    <%= f.check_box :is_showing,disabled:true%><br>
+    <%= f.label :概要 %><br>
+    <%= f.text_area :description, placeholder:"#{@movie.description}",rows:3,cols:40,readonly: true%><br>
+    <% today = Date.current.strftime("%-m月 %d日") %>
+    <% d = Date.today %>
+    <%= f.select :schedule_date, [
+      [(d).strftime("%-m月 %d日")], 
+      [(d+1).strftime("%-m月 %d日")], 
+      [(d+2).strftime("%-m月 %d日")], 
+      [(d+3).strftime("%-m月 %d日")],
+      [(d+4).strftime("%-m月 %d日")],
+      [(d+5).strftime("%-m月 %d日")],
+      [(d+6).strftime("%-m月 %d日")]
+      ], include_blank: "日付を選択して下さい" %><br>
+    <% @schedules.each do |schedule| %>
+    <%= f.select :schedule_time, [
+      [schedule.start_time.strftime("%H:%M")+"〜"+schedule.end_time.strftime("%H:%M")],
+      ], include_blank: "時刻を選択して下さい" %><br>
+    <% end %>
+    <%= f.submit :予約, class: "btn btn-primary" %>
+  <% end %>
+  </div>
+  <table class = "table table-striped">
+  <tr class="table-primary">
+    <th>ID</th>
+    <th>映画ID</th>
+    <th>上映開始時刻</th>
+    <th>上映終了時刻</th>
+    <th>登録日時</th>
+    <th>更新日時</th>
+  </tr>
+  <% @schedules.each do |schedule| %>
+  <tr>
+    <td><%= schedule.id %></td>
+    <td><%= schedule.movie_id %></td>
+    <td><%= schedule.start_time.strftime("%H:%M") %></td>
+    <td><%= schedule.end_time.strftime("%H:%M") %></td>
+    <td><%= schedule.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+    <td><%= schedule.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+  </tr>
+  <% end %>
+  </table>
+<%= link_to "一覧画面へ戻る", movies_path %>

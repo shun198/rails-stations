@@ -1,0 +1,40 @@
+  <%= render partial: 'layouts/flash' %>
+  <h1 class="form-title">映画編集</h1>
+  <%= form_with(model: @movie,url:"/admin/movies/#{@movie.id}") do |f| %>
+  <div class ="form-layout">
+    <%= image_tag "#{@movie.image_url}" %><br>
+    <%= f.label :映画タイトル %><br>
+    <%= f.text_field :name, placeholder:"映画タイトル",size:40%><br>
+    <%= f.label :公開年 %><br>
+    <%= f.text_field :year, placeholder:"公開年",size:20%><br>
+    <%= f.label :上映中か %><br>
+    <%= f.check_box :is_showing%><br>
+    <%= f.label :概要 %><br>
+    <%= f.text_area :description, placeholder:"概要"%><br>
+    <%= f.text_field :image_url, placeholder:"画像URL"%><br>
+    <%= f.submit :保存, class: "btn btn-primary" %><br>
+    <%= link_to "削除", "/admin/movies/#{@movie.id}",method: :delete, data: { confirm: "【確認】映画を削除してもよろしいですか？" }, class: "btn btn-danger" %><br>
+  <% end %>
+  </div>
+  <table class = "table table-striped">
+  <tr class="table-primary">
+    <th>ID</th>
+    <th>映画ID</th>
+    <th>上映開始時刻</th>
+    <th>上映終了時刻</th>
+    <th>登録日時</th>
+    <th>更新日時</th>
+  </tr>
+  <% @schedules.each do |schedule| %>
+  <tr>
+    <td><%= link_to "#{schedule.id}", "/admin/schedules/#{schedule.id}"%></td>
+    <td><%= schedule.movie_id %></td>
+    <td><%= schedule.start_time.strftime("%H:%M") %></td>
+    <td><%= schedule.end_time.strftime("%H:%M") %></td>
+    <td><%= schedule.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+    <td><%= schedule.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+  </tr>
+  <% end %>
+  </table>
+  <%= link_to "一覧画面へ戻る", admin_movies_path %><br>
+  <%= link_to "新規スケジュール作成画面へ", "#{@movie.id}/schedules/new" %><br>

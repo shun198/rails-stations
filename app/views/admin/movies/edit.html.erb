@@ -1,0 +1,21 @@
+<%= render partial: 'layouts/flash' %>
+  <h1 class="form-title">映画編集</h1>
+  <%= form_with(model: @movie,url:"/admin/movies/#{@movie.id}") do |f| %>
+  <div class ="form-layout">
+    <%= image_tag "#{@movie.image_url}" %><br>
+    <%= f.label :映画タイトル %><br>
+    <%= f.text_field :name, placeholder:"映画タイトル",size:40%><br>
+    <%= f.label :公開年 %><br>
+    <%= f.text_field :year, placeholder:"公開年",size:20%><br>
+    <%= f.label :上映中か %><br>
+    <%= f.check_box :is_showing%><br>
+    <%= f.label :概要 %><br>
+    <%= f.text_area :description, placeholder:"概要"%><br>
+    <%= f.text_field :image_url, placeholder:"画像URL"%><br>
+    <%= f.submit :保存, class: "btn btn-primary" %><br>
+  </div>
+  <% end %>
+  <%= link_to "削除", "/admin/movies/#{@movie.id}",method: :delete, data: { confirm: "【確認】映画を削除してもよろしいですか？" }, class: "btn btn-danger" %>
+  <%= link_to "一覧画面へ戻る", admin_movies_path %><br>
+  <%#= link_to "スケジュール編集画面へ",edit_admin_schedule_path%><br>
+  <%= link_to "新規スケジュール作成画面へ", "/admin/movies/#{@movie.id}/schedules/new" %><br>
