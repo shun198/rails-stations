@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   #シート ルーティング
   get 'sheets' => 'sheets#index'
   get 'movies/:id/schedules/:id/sheets' => 'sheets#index'
+  patch '/movies/:id/schedules/:id/sheets' => 'sheets#new'
   get  '/movies/:id/schedules/:id/reservations/new' => 'reservations#new'
+  patch '/movies/:id/schedules/:id/reservations/new' => 'reservations#new'
   resources :reservations
   #管理者 ルーティング
   namespace :admin do

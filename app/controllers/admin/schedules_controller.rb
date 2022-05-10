@@ -10,11 +10,13 @@ class Admin::SchedulesController < ApplicationController
   def show
     @schedules = Schedule.find(params[:id])
     @movies = Movie.where(id: @schedules.movie_id)
+    binding.pry
   end
 
 
   def create
     @schedules = Schedule.new(schedule_params)
+    binding.pry
     if @schedules.save
       flash[:notice] = "登録が完了しました"
       redirect_to admin_movies_path
@@ -25,12 +27,16 @@ class Admin::SchedulesController < ApplicationController
   end
 
   def edit
+    binding.pry
     @schedules = Schedule.find(params[:id])
     @movies = Movie.where(id: @schedules.movie_id)
+    binding.pry
   end
 
   def update
+    binding.pry
     @schedule = Schedule.find(params[:id])
+    binding.pry
     if @schedule.update(schedule_params)
       flash[:notice] = "更新が完了しました!"
       redirect_to admin_schedules_path

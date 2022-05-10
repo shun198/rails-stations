@@ -1,7 +1,6 @@
 class Admin::MoviesController < ApplicationController
   def index
     @movies = Movie.all
-    #@schedules = Schedule.where(movie_id: @movies.ids)
   end
 
   def new
@@ -11,6 +10,7 @@ class Admin::MoviesController < ApplicationController
   def show
     @movie = Movie.find(params[:id])
     @schedules = Schedule.where(movie_id: @movie.id)
+    binding.pry
   end
 
   def create
@@ -31,6 +31,7 @@ class Admin::MoviesController < ApplicationController
 
   def update
     @movie = Movie.find(params[:id])
+    binding.pry
     if @movie.update(movie_params)
       flash[:notice] = "更新が完了しました!"
       redirect_to admin_movies_path
