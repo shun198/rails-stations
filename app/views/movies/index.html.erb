@@ -23,7 +23,7 @@
   </tr>
   <% @movies.each do |movie| %>
   <tr>
-    <td><%= link_to "#{movie.id}", "/movies/#{movie.id}"%></td>
+    <td><%= link_to "#{movie.id}", movie_path(movie)%></td>
     <td><%= movie.name %></td>
     <td><%= movie.year %></td>
     <td><%= movie.description %></td>

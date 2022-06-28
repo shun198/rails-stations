@@ -13,7 +13,7 @@
   </tr>
   <% @schedules.each do |schedule| %>
   <tr>
-    <td><%= link_to "#{schedule.id}", "/admin/schedules/#{schedule.id}"%></td>
+    <td><%= link_to "#{schedule.id}", admin_schedule_path(schedule.id)%></td>
     <td><%= schedule.name %></td>
     <td><%= schedule.start_time.strftime("%H:%M") %></td>
     <td><%= schedule.end_time.strftime("%H:%M") %></td>

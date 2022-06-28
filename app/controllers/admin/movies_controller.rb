@@ -10,11 +10,11 @@ class Admin::MoviesController < ApplicationController
   def show
     @movie = Movie.find(params[:id])
     @schedules = Schedule.where(movie_id: @movie.id)
-    binding.pry
   end
 
   def create
     @movie = Movie.new(movie_params)
+    binding.pry
     if @movie.save
       flash[:notice] = "登録が完了しました"
       redirect_to admin_movies_path

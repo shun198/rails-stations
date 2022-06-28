@@ -1,38 +1,30 @@
 <%= render partial: 'layouts/flash' %>
-  <h1 class="form-title">映画詳細</h1>
-  <%= form_with(model: @movie, url:"/movies/#{@movie.id}/schedules/1/sheets") do |f| %>
+  <h1 class="form-title">映画</h1>
+  <%= form_with(url:movie_schedule_sheets_path(@movie.id,3),method: :get) do |f| %>
+  <%#= form_with(model: [@movie,@schedules],url:sheets_path,method: :get) do |f|%>
   <div class ="form-layout">
     <%= image_tag "#{@movie.image_url}" %><br>
-    <%= f.label :映画タイトル %><br>
-    <%= f.text_field :name, placeholder:"#{@movie.name}",size:40,readonly: true%><br>
-    <%= f.label :公開年 %><br>
-    <%= f.text_field :year, placeholder:"#{@movie.year}",size:20,readonly: true%><br>
-    <%= f.label :上映中か %><br>
+    <h4>映画タイトル</h4>
+    <%= f.label :"#{@movie.name}"%><br>
+    <h4>公開年</h4>
+    <%= f.label :"#{@movie.year}" %><br>
+    <h4>上映中か</h4>
     <%= f.check_box :is_showing,disabled:true%><br>
-    <%= f.label :概要 %><br>
-    <%= f.text_area :description, placeholder:"#{@movie.description}",rows:3,cols:40,readonly: true%><br>
-    <% today = Date.current.strftime("%-m月 %d日") %>
+    <h4>概要</h4>
+    <%= f.label :"#{@movie.description}" %><br>
+    <%# today = Date.current.strftime("%-m月 %d日") %>
+    <%# d = Date.today %>
+    <% today = Date.current %>
     <% d = Date.today %>
-    <%= f.select :schedule_date, [
-      [(d).strftime("%-m月 %d日")], 
-      [(d+1).strftime("%-m月 %d日")], 
-      [(d+2).strftime("%-m月 %d日")], 
-      [(d+3).strftime("%-m月 %d日")],
-      [(d+4).strftime("%-m月 %d日")],
-      [(d+5).strftime("%-m月 %d日")],
-      [(d+6).strftime("%-m月 %d日")]
-      ], 
-      include_blank: "日付を選択して下さい" %><br>
-    <% @schedules.each do |schedule| %>
-    <%= f.select :schedule_time, [
-      [schedule.start_time.strftime("%H:%M")+"〜"+schedule.end_time.strftime("%H:%M")],
-      ], 
-      include_blank: "時刻を選択して下さい" %><br>
-    <% end %>
-    <%= f.submit :座席を予約, class: "btn btn-primary" %><br>
+    <%= f.select :date,(0..6).map {
+      #|i| [(d+i).strftime("%-m月 %d日")]
+      |i| [(d+i)]
+    },include_blank: "日付を選択して下さい" %><br>
+    <%= f.select :schedule_id, @schedules.map {
+      |schedule| [schedule.start_time.strftime("%H:%M")+"〜"+schedule.end_time.strftime("%H:%M"),schedule.id]
+    },include_blank: "時間を選択して下さい" %><br>
+    <button><%= f.submit :座席を予約する%><br></button>
   <% end %>
-  <%#= form_for @schedules do |schedule| %>
-  <%# end %>
   </div>
   <table class = "table table-striped">
   <tr class="table-primary">

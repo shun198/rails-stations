@@ -2,6 +2,14 @@
 <h1 class="form-title">新規予約画面</h1>
 <%= form_with(model: @reservation, url:reservations_path) do |f| %>
   <div class ="form-layout">
+    <%= f.hidden_field :movie_id,:value => @movie_id %>
+    <%= f.hidden_field :schedule_id,:value => @schedule_id %>
+    <%= f.hidden_field :sheet_id,:value => @sheet_id %>
+    <% if @date.nil? %>
+      <%= f.hidden_field :date,:value => @date %>
+    <% else %>
+      <%= f.hidden_field :date,:value => Date.parse(@date) %>
+    <% end %>
     <%= f.text_field :name, placeholder:"名前",size:40%><br>
     <%= f.text_field :email, placeholder:"メールアドレス",size:40%><br>
     <%= f.submit :保存, class: "btn btn-primary" %><br>

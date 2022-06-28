@@ -5,18 +5,16 @@ class Admin::SchedulesController < ApplicationController
 
   def new
     @schedule = Schedule.new
+    @movie = Movie.find_by(params[:movie_id_param])
   end
 
   def show
     @schedules = Schedule.find(params[:id])
-    @movies = Movie.where(id: @schedules.movie_id)
-    binding.pry
+    @movie = Movie.find(params[:id])
   end
-
 
   def create
     @schedules = Schedule.new(schedule_params)
-    binding.pry
     if @schedules.save
       flash[:notice] = "登録が完了しました"
       redirect_to admin_movies_path
@@ -27,16 +25,12 @@ class Admin::SchedulesController < ApplicationController
   end
 
   def edit
-    binding.pry
     @schedules = Schedule.find(params[:id])
     @movies = Movie.where(id: @schedules.movie_id)
-    binding.pry
   end
 
   def update
-    binding.pry
     @schedule = Schedule.find(params[:id])
-    binding.pry
     if @schedule.update(schedule_params)
       flash[:notice] = "更新が完了しました!"
       redirect_to admin_schedules_path
@@ -59,7 +53,7 @@ class Admin::SchedulesController < ApplicationController
 
   private
   def schedule_params
-    params.require(:schedule).permit(:start_time, :end_time, :created_at, :updated_at)
+    params.require(:schedule).permit(:movie_id, :start_time, :end_time)
   end
 
 end

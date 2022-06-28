@@ -1,11 +1,12 @@
 <%= render partial: 'layouts/flash' %>
 <h1 class="form-title">新規スケジュール登録画面</h1>
-<%= form_with(model: @schedule, url:admin_schedules_path) do |f| %>
+<%= form_with(model: @schedule, url:admin_new_schedule_path(@movie.id)) do |f| %>
   <div class ="form-layout">
+    <%=f.hidden_field :movie_id, :value => @movie.id %>
     <%= f.label :上映開始時間 %><br>
-    <%= f.text_field :name, placeholder:"上映開始時間",size:40%><br>
+    <%= f.text_field :start_time, placeholder:"上映開始時間",size:40%><br>
     <%= f.label :上映終了時間 %><br>
-    <%= f.text_field :year, placeholder:"上映終了時間",size:40%><br>
+    <%= f.text_field :end_time, placeholder:"上映終了時間",size:40%><br>
     <%= f.submit :保存, class: "btn btn-primary" %><br>
   </div>
   <% end %>
