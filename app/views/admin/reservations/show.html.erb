@@ -1,0 +1,20 @@
+  <%= render partial: 'layouts/flash' %>
+  <h1 class="form-title">予約編集</h1><br>
+    <%= form_with(model: @reservation,url:admin_reservation_path(@reservation.id)) do |f| %>
+      <div class ="form-layout">
+        <%= f.label :日付 %><br>
+        <%= f.text_field :date, placeholder:"日付",size:20%><br>
+        <%= f.label :スケジュール %><br>
+        <%= f.text_field :schedule_id, placeholder:"スケジュール",size:20%><br>
+        <%= f.label :シート %><br>
+        <%= f.text_field :sheet_id, placeholder:"シート",size:20%><br>
+        <%= f.label :メール %><br>
+        <%= f.text_field :email, placeholder:"メール",size:20%><br>
+        <%= f.label :名前 %><br>
+        <%= f.text_field :name, placeholder:"名前",size:20%><br>
+        <%= f.submit :保存, class: "btn btn-primary" %><br>
+        <%= link_to "削除", admin_reservation_path(@reservation.id),method: :delete, data: { confirm: "【確認】予約を削除してもよろしいですか？" }, class: "btn btn-danger" %><br>
+      <% end %>
+      </div>
+  <%= link_to "一覧画面へ戻る", admin_reservations_path %><br>
+  <%= link_to "新規予約作成画面へ", new_admin_reservation_path %><br>

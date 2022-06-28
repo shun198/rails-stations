@@ -1,0 +1,18 @@
+<%= render partial: 'layouts/flash' %>
+<h1 class="form-title">新規予約登録画面</h1>
+<%= form_with(model: @reservation, url:new_admin_reservation_path) do |f| %>
+    <div class ="form-layout">
+      <%= f.label :日付 %><br>
+      <%= f.text_field :date, placeholder:"日付",size:20%><br>
+      <%= f.label :スケジュール %><br>
+      <%= f.text_field :schedule_id, placeholder:"スケジュール",size:20%><br>
+      <%= f.label :シート %><br>
+      <%= f.text_field :sheet_id, placeholder:"シート",size:20%><br>
+      <%= f.label :メール %><br>
+      <%= f.text_field :email, placeholder:"メール",size:20%><br>
+      <%= f.label :名前 %><br>
+      <%= f.text_field :name, placeholder:"名前",size:20%><br>
+      <%= f.submit :保存, class: "btn btn-primary" %><br>
+    <% end %>
+    </div>
+  <%= link_to "一覧画面へ戻る", admin_reservations_path %>

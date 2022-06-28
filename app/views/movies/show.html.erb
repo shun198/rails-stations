@@ -12,12 +12,9 @@
     <%= f.check_box :is_showing,disabled:true%><br>
     <h4>概要</h4>
     <%= f.label :"#{@movie.description}" %><br>
-    <%# today = Date.current.strftime("%-m月 %d日") %>
-    <%# d = Date.today %>
     <% today = Date.current %>
     <% d = Date.today %>
     <%= f.select :date,(0..6).map {
-      #|i| [(d+i).strftime("%-m月 %d日")]
       |i| [(d+i)]
     },include_blank: "日付を選択して下さい" %><br>
     <%= f.select :schedule_id, @schedules.map {

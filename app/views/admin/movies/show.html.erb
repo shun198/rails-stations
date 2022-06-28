@@ -27,7 +27,7 @@
   </tr>
   <% @schedules.each do |schedule| %>
   <tr>
-    <td><%= link_to "#{schedule.id}", "/admin/schedules/#{schedule.id}"%></td>
+    <td><%= link_to "#{schedule.id}", admin_schedule_path(schedule)%></td>
     <td><%= schedule.movie_id %></td>
     <td><%= schedule.start_time.strftime("%H:%M") %></td>
     <td><%= schedule.end_time.strftime("%H:%M") %></td>
@@ -37,4 +37,4 @@
   <% end %>
   </table>
   <%= link_to "一覧画面へ戻る", admin_movies_path %><br>
-  <%= link_to "新規スケジュール作成画面へ", "#{@movie.id}/schedules/new" %><br>
+  <%= link_to "新規スケジュール作成画面へ", new_admin_movie_path %><br>

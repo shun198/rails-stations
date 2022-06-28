@@ -1,0 +1,22 @@
+  <%= render partial: 'layouts/flash' %>
+  <h2 class="title">予約一覧(管理者)</h2><br>
+  <table class = "table table-striped">
+  <tr class="table-primary">
+    <th>ID</th>
+    <th>予約日付</th>
+    <th>スケジュールID</th>
+    <th>シートID</th>
+    <th>メールアドレス</th>
+    <th>名前</th>
+  </tr>
+  <% @reservations.each do |reservation| %>
+  <tr>
+    <td><%= link_to "#{reservation.id}", admin_reservation_path(reservation)%></td>
+    <td><%= reservation.date %></td>
+    <td><%= reservation.schedule_id %></td>
+    <td><%= reservation.sheet_id %></td>
+    <td><%= reservation.email %></td>
+    <td><%= reservation.name %></td>
+  </tr>
+  <% end %>
+</table>
