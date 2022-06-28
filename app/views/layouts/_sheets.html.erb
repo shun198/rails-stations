@@ -11,11 +11,19 @@
     <br>
   </tr>
   <% count = 1%>
+  <% i = 0 %>
+  <%# binding.pry %>
   <%@sheets.each do |sheet|%>
     <% if count != @count + 1 %>
       <tr>
-        <% if @date != nil && @movie_id != nil && @schedule_id != nil %> 
-          <%= link_to("#{sheet.row}-#{sheet.column}",new_movie_schedule_reservation_path(date:@date, movie_id:@movie_id,sheet_id:sheet.id,schedule_id:@schedule_id))%>&nbsp;
+        <% if i ==  @reservations.count %>
+          <% i -= 1 %>
+        <% end %>
+        <% if @reservations[i].sheet_id == count %>
+          <%= link_to("#{sheet.row}-#{sheet.column}",new_movie_schedule_reservation_path(date:@date, movie_id:@movie_id,sheet_id:sheet.id,schedule_id:@schedule_id),class: "sheet-orange")%>&nbsp;
+          <% i += 1%>
+        <% else %>
+          <span class="sheet-gray"><%= "#{sheet.row}-#{sheet.column}" %></span>&nbsp;
         <% end %>
       </tr>
       <% if count %5 == 0 %>

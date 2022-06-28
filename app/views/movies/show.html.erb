@@ -1,6 +1,6 @@
 <%= render partial: 'layouts/flash' %>
   <h1 class="form-title">映画</h1>
-  <%= form_with(url:movie_schedule_sheets_path(@movie.id,3),method: :get) do |f| %>
+  <%= form_with(url:movie_schedule_sheets_path(@movie.id,1),method: :get) do |f| %>
   <%#= form_with(model: [@movie,@schedules],url:sheets_path,method: :get) do |f|%>
   <div class ="form-layout">
     <%= image_tag "#{@movie.image_url}" %><br>

@@ -2,13 +2,14 @@ class SheetsController < ApplicationController
   def index
     @sheets = Sheet.all
     @count = Sheet.count
+    @movie_id = params[:movie_id]
+    @schedule_id = params[:schedule_id]
+    @reservations = Reservation.select(:sheet_id).where(schedule_id: @schedule_id)
     if params[:date] == ""
       @date = nil
     else
       @date = params[:date]
     end
-    @movie_id = params[:movie_id]
-    @schedule_id = params[:schedule_id]
     if @date == nil?
       render status: 400
     elsif @date == "" 
